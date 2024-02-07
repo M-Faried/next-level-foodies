@@ -1,11 +1,11 @@
-import { getMeal } from "@/lib/meals";
-import Image from "next/image";
+import LoadingFallback from "@/components/loading-fallback";
+import SingleMeal from "@/components/single-meal";
+import { getSingleMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
-import styles from "./page.module.css";
+import { Suspense } from "react";
 
-const MealDetailsPage = ({ params }) => {
-  const meal = getMeal(params.mealsSlug);
-
+const MealDisplay = async ({ mealID }) => {
+  const meal = await getSingleMeal(mealID);
   if (!meal) {
     // Showing the closest not found in the tree. If there
     // weren't any, then it will display the error page.
@@ -13,33 +13,16 @@ const MealDetailsPage = ({ params }) => {
     // the component
     notFound();
   }
+  return <SingleMeal meal={meal} />;
+};
 
-  // Replacing \n with html line breaks.
-  meal.instructions = meal.instructions.replace(/\n/g, "<br/>");
-
+const MealDetailsPage = ({ params }) => {
   return (
-    <>
-      <header className={styles.header}>
-        <div className={styles.image}>
-          <Image src={meal.image} fill />
-        </div>
-        <div className={styles.headerText}>
-          <h1>{meal.title}</h1>
-          <p className={styles.creator}>
-            <a href={`mailto:${meal.creator_email}`}>{meal.creator}</a>
-          </p>
-          <p className={styles.summary}>{meal.summary}</p>
-        </div>
-      </header>
-      <main>
-        <p
-          className={styles.instructions}
-          dangerouslySetInnerHTML={{
-            __html: meal.instructions,
-          }}
-        ></p>
-      </main>
-    </>
+    <Suspense
+      fallback={<LoadingFallback message="Fetching Selected Meal..." />}
+    >
+      <MealDisplay mealID={params.mealsSlug} />
+    </Suspense>
   );
 };
 
