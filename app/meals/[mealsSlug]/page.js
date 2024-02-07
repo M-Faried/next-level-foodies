@@ -1,5 +1,5 @@
 import LoadingFallback from "@/components/loading-fallback";
-import SingleMeal from "@/components/single-meal";
+import SingleMeal from "@/components/meals/single-meal";
 import { getSingleMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
