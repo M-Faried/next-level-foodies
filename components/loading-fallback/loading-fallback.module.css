@@ -1,0 +1,19 @@
+.loading {
+  font-size: 3rem;
+  text-align: center;
+  color: #ddd6cb;
+  font-weight: bold;
+  animation: flash 1s ease-in-out infinite alternate;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
