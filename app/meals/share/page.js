@@ -1,6 +1,7 @@
 import ImagePicker from "@/components/meals/image-picker";
-import styles from "./page.module.css";
+import MealsFormSubmit from "@/components/meals/meals-form-submit";
 import { shareMeal } from "@/lib/actions";
+import styles from "./page.module.css";
 
 // Notes:
 // You can convert this file to a use client component although it uses
@@ -28,7 +29,7 @@ const ShareMealPage = () => {
             </p>
           </div>
           <p>
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">Meal Name</label>
             <input type="text" id="title" name="title" required />
           </p>
           <p>
@@ -46,7 +47,11 @@ const ShareMealPage = () => {
           </p>
           <ImagePicker label="Meal Image" name="image" />
           <p className={styles.actions}>
-            <button type="submit">Share Meal</button>
+            {/* 
+              The following button was moved to a different file so that we can convert it 
+              only to client and be able to use useFormStatus.
+             */}
+            <MealsFormSubmit />
           </p>
         </form>
       </main>
