@@ -1,3 +1,4 @@
+import LoadingFallback from "@/components/loading-fallback";
 import MealsGrid from "@/components/meals/meals-grid";
 import { getMeals } from "@/lib/meals";
 import Link from "next/link";
@@ -11,10 +12,6 @@ import styles from "./page.module.css";
 const Meals = async () => {
   const meals = await getMeals();
   return <MealsGrid meals={meals} />;
-};
-
-const LoadingFallback = () => {
-  return <h1 className={styles.loading}>Fetching Meals...</h1>;
 };
 
 const MealsPage = async () => {
@@ -33,7 +30,7 @@ const MealsPage = async () => {
         </p>
       </header>
       <main className={styles.main}>
-        <Suspense fallback={<LoadingFallback />}>
+        <Suspense fallback={<LoadingFallback message="Fetching Meals..." />}>
           <Meals />
         </Suspense>
       </main>
