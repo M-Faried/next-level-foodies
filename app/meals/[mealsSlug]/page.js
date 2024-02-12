@@ -7,9 +7,9 @@ import { Suspense } from "react";
 const MealDisplay = async ({ mealID }) => {
   const meal = await getSingleMeal(mealID);
   if (!meal) {
-    // Showing the closest not found in the tree. If there
+    // Note: Showing the closest not found in the tree. If there
     // weren't any, then it will display the error page.
-    // NOTE: This will stop the rendering of the rest of
+    // Note: This will stop the rendering of the rest of
     // the component
     notFound();
   }
